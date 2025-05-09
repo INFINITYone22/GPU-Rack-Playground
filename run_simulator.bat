@@ -1,0 +1,6 @@
+@echo off
+echo Starting GPU Rack Playground...
+echo Opening your web browser to http://localhost:8000
+start http://localhost:8000
+echo Starting Python HTTP server...
+python -m http.server 8000 

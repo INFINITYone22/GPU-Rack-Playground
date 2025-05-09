@@ -1,0 +1,6001 @@
+/* GPUToySim - style.css */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+    margin: 0;
+    padding: 0;
+    background-color: #282c34; /* Darker background */
+    color: #abb2bf; /* Lighter text for dark background */
+    padding-bottom: 70px; /* Footer height + some margin */
+}
+
+header {
+    background-color: #1c1e22; /* Even darker header */
+    color: #61afef; /* Accent color for title */
+    padding: 1em 0;
+    text-align: center;
+    border-bottom: 1px solid #3c4048;
+}
+
+header h1 {
+    margin: 0;
+    font-weight: 300; /* Lighter font weight for modern look */
+}
+
+main {
+    padding: 20px;
+    display: grid;
+    grid-template-areas:
+        "simulation controls"
+        "simulation settings"
+        "simulation stats";
+    grid-template-columns: 3fr 1.2fr; /* Give a bit more space to right column */
+    grid-template-rows: auto auto 1fr; /* Controls, Settings, then Stats fill remaining */
+    grid-gap: 25px;
+    max-width: 1800px;
+    margin: 20px auto;
+    min-height: calc(100vh - 150px); /* Try to make main area fill viewport less header/footer */
+}
+
+#simulation-area {
+    grid-area: simulation;
+    background-color: #21252b; /* Dark background for sim area */
+    border: 1px solid #3c4048;
+    border-radius: 8px; /* Rounded corners */
+    padding: 25px;
+    min-height: 450px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+#controls-area {
+    grid-area: controls;
+    background-color: #21252b; /* Dark background */
+    border: 1px solid #3c4048;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+#settings-area {
+    grid-area: settings;
+    background-color: #21252b; /* Dark background */
+    border: 1px solid #3c4048;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    overflow-y: auto; /* Allow scrolling if settings exceed height */
+}
+
+#settings-area h4 {
+    color: #c678dd; /* Purple accent for subheadings in settings */
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #3c4048;
+    padding-bottom: 5px;
+    font-weight: 400;
+}
+
+#settings-area div { /* Spacing for control groups in settings */
+    margin-bottom: 15px;
+}
+
+#settings-area label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: #abb2bf; /* Standard text color for labels */
+}
+
+/* Specific styling for slider value displays in settings */
+#settings-area span[id$="-value"] { /* Targets spans like time-scale-value, error-chance-value */
+    display: inline-block;
+    min-width: 40px; /* Ensure some space for the value */
+    font-weight: bold;
+    color: #61afef; /* Accent color, consistent with time-scale-value */
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+#settings-area input[type="range"] {
+    width: calc(100% - 60px); /* Adjust width to make space for value display */
+    vertical-align: middle;
+    /* General styles for range/number inputs are already present, but can be refined if needed */
+}
+
+#stats-area {
+    grid-area: stats;
+    background-color: #21252b; /* Dark background */
+    border: 1px solid #3c4048;
+    border-radius: 8px;
+    padding: 25px;
+    font-size: 0.95em; /* Slightly larger base font for stats */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+#stats-area h3, #stats-area h4 {
+    margin-top: 0.8em;
+    margin-bottom: 0.4em;
+    color: #98c379; /* Accent color for headings */
+    border-bottom: 1px solid #3c4048;
+    padding-bottom: 5px;
+    font-weight: 400;
+}
+#stats-area ul {
+    list-style-type: none;
+    padding-left: 0; /* Remove default padding */
+    font-size: 0.9em;
+    max-height: 180px;
+    overflow-y: auto;
+    background-color: #282c34; /* Slightly different background for lists */
+    border: 1px solid #3c4048;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+
+#stats-area hr {
+    margin: 20px 0;
+    border-color: #3c4048;
+}
+
+footer {
+    text-align: center;
+    padding: 1.2em 0;
+    background-color: #1c1e22;
+    color: #abb2bf;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+    font-size: 0.9em;
+    border-top: 1px solid #3c4048;
+}
+
+button {
+    display: block;
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 12px 18px;
+    background-color: #61afef; /* Primary button color */
+    color: #1c1e22; /* Dark text on light blue button */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background-color: #529dda; /* Lighter shade on hover */
+    transform: translateY(-1px);
+}
+
+button:disabled {
+    background-color: #40434a; /* Darker disabled state */
+    color: #777c85;
+    cursor: not-allowed;
+    transform: translateY(0);
+}
+
+/* Secondary Action Button Style (e.g., for debug/test actions) */
+.secondary-action-btn {
+    background-color: #4b515c; /* A more muted color */
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+
+h2 {
+    margin-top: 0;
+    color: #e06c75; /* Accent for H2 */
+    font-weight: 400;
+    border-bottom: 1px solid #3c4048;
+    padding-bottom: 8px;
+}
+
+/* --- GPU Rack and Card Styles --- */
+#gpu-rack-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Increased gap for better spacing */
+    justify-content: flex-start; /* Start from left */
+    padding: 15px;
+    align-items: stretch; /* Make cards of same height if in same row */
+}
+
+.gpu-card {
+    background-color: #2c313a; /* Darker card background */
+    border: 1px solid #4b515c;
+    border-radius: 6px;
+    padding: 12px;
+    width: 150px; /* Slightly wider cards */
+    min-height: 160px; /* Taller cards for more info */
+    font-size: 0.85em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.gpu-card:hover {
+    transform: translateY(-2px);
+    border-color: #61afef; /* Accent color border on hover */
+}
+
+.gpu-card .gpu-id {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 8px;
+    color: #61afef; /* Accent color for ID */
+    font-size: 1.1em;
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 5px;
+}
+
+.gpu-card div { /* General styling for direct child divs in gpu-card */
+    margin-bottom: 5px;
+    line-height: 1.4;
+}
+
+.gpu-card .gpu-status,
+.gpu-card .gpu-load,
+.gpu-card .gpu-memory,
+.gpu-card .gpu-jobs {
+    font-size: 0.9em;
+}
+
+.gpu-card.idle {
+    background-color: #3b4049; /* Subtler idle */
+    border-left: 5px solid #5c6370; /* Status indicator strip */
+}
+
+.gpu-card.busy {
+    /* JS will set a specific background, but provide a fallback */
+    background-color: #3a533b; /* Darker green base for busy */
+    border-left: 5px solid #98c379; /* Green status strip */
+}
+
+.gpu-card.error {
+    background-color: #5a3d3b; /* Dark redish background for error */
+    border: 2px solid #e06c75; /* Prominent error border */
+    border-left: 5px solid #be5046; /* Darker red strip */
+    animation: errorPulse 1s infinite alternate;
+}
+
+@keyframes errorPulse {
+    from {
+        box-shadow: 0 0 8px rgba(224, 108, 117, 0.5), 0 2px 8px rgba(0,0,0,0.3);
+    }
+    to {
+        box-shadow: 0 0 15px rgba(224, 108, 117, 0.8), 0 2px 8px rgba(0,0,0,0.4);
+    }
+}
+
+.gpu-card.error .gpu-id {
+    color: #e06c75; /* Error color for ID */
+}
+
+.gpu-card.error .gpu-status,
+.gpu-card.error .gpu-load,
+.gpu-card.error .gpu-memory,
+.gpu-card.error .gpu-jobs {
+    color: #e06c75; /* Error color for job details */
+}
+
+.gpu-error-info {
+    font-size: 0.8em;
+    color: #e06c75; /* Error text color */
+    text-align: center;
+    margin-top: 5px;
+    padding: 3px;
+    background-color: rgba(40, 44, 52, 0.6); /* Slightly darker background for readability */
+    border-radius: 3px;
+    display: none; /* Hidden by default */
+}
+
+.gpu-is-error {
+    color: #e06c75;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Styles for GPU metric groups (label + progress bar) */
+.gpu-metric {
+    margin-bottom: 8px;
+}
+
+.gpu-metric span {
+    font-size: 0.9em;
+    color: #abb2bf; /* Standard text color */
+}
+
+.gpu-metric .gpu-load-value,
+.gpu-metric .gpu-memory-value {
+    font-weight: bold;
+    color: #c1c8d4; /* Slightly brighter for values */
+}
+
+/* Progress Bar Styles */
+.progress-bar-container {
+    width: 100%;
+    height: 12px; /* Increased height for better visibility */
+    background-color: #21252b; /* Darker background for the track */
+    border: 1px solid #4b515c; /* Border to match card elements */
+    border-radius: 3px;
+    margin-top: 4px;
+    overflow: hidden; /* Ensures fill stays within bounds */
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: #61afef; /* Default fill color (e.g., for load) */
+    border-radius: 2px; /* Slightly rounded inner fill */
+    transition: width 0.2s ease-out; /* Smooth transition for width changes */
+    text-align: right;
+    padding-right: 5px; /* Optional: if you want to put text inside the bar */
+    color: white;
+    font-size: 0.7em;
+    line-height: 12px; /* Match container height */
+}
+
+.progress-bar-fill.load-fill {
+    background-color: #98c379; /* Green for load */
+}
+
+.progress-bar-fill.memory-fill {
+    background-color: #e06c75; /* Red/Coral for memory */
+}
+
+/* Styles for Tokens Processed Per Tick */
+.gpu-tokens-tick-container {
+    margin-top: 8px;
+    font-size: 0.9em;
+    text-align: center; /* Center the text */
+    color: #abb2bf;
+}
+
+.gpu-tokens-tick-value {
+    font-weight: bold;
+    color: #c1c8d4; /* Default color for the value */
+    display: inline-block; /* Allows for transform if needed */
+    transition: color 0.1s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.gpu-tokens-tick-value.active-tick {
+    color: #61afef; /* Bright accent color for active tick */
+    transform: scale(1.15); /* Slightly larger when active */
+}
+
+/* Time Scale Indicator styling */
+.time-scale-indicator {
+    display: inline-block;
+    padding: 0 5px;
+    font-size: 0.85em;
+    color: #e06c75; /* Accent color for time scale */
+    font-weight: bold;
+}
+
+/* Styles for GPU Job Details Area */
+.gpu-job-details-area {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed #4b515c;
+    font-size: 0.8em;
+    min-height: 40px; /* Ensure space even if empty */
+    max-height: 70px; /* Added to control height */
+    overflow-y: auto; /* Added for scrolling if content exceeds max-height */
+}
+
+.job-detail-item {
+    margin-bottom: 4px;
+    line-height: 1.3;
+    color: #abb2bf; /* Standard text */
+}
+
+.job-detail-item strong {
+    color: #c1c8d4; /* Brighter for job ID */
+}
+
+.job-detail-item br {
+    display: block; /* Make sure <br> creates a new line */
+    content: "";
+    margin-top: 2px;
+}
+
+.no-active-jobs {
+    font-style: italic;
+    color: #5c6370; /* Muted color */
+    text-align: center;
+    padding-top: 5px;
+}
+
+/* Add styles for job type select and input */
+select, input[type="number"], input[type="text"] {
+    width: calc(100% - 22px); /* Full width minus padding */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #3c4048;
+    background-color: #282c34;
+    color: #abb2bf;
+    box-sizing: border-box;
+}
+
+#controls-area label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: #98c379;
+}
+
+/* Style for the performance mode select if not already covered */
+#perf-mode-select {
+    /* Uses the general select styles above */
+}
+
+/* Styles for Time Scale Slider */
+#time-scale-slider {
+    width: calc(100% - 70px); /* Adjust width to make space for value display */
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+#time-scale-value {
+    display: inline-block;
+    width: 50px; /* Fixed width for the value */
+    font-weight: bold;
+    color: #61afef; /* Accent color */
+    vertical-align: middle;
+}
+
+#controls-area div { /* Add some margin below each control group */
+    margin-bottom: 15px;
+}
+
+/* (Optional) Add more specific styles for other states like 'error' later */
+
+/* Styles for Completed/Failed Job List Items */
+#completed-jobs-list li.job-status-completed {
+    /* Default style is fine, or add specific if needed */
+    color: #abb2bf; 
+}
+
+#completed-jobs-list li.job-status-failed {
+    color: #e06c75; /* Error color for failed jobs */
+    font-style: italic;
+}
+
+#completed-jobs-list li.job-status-failed strong {
+    color: #e06c75; /* Ensure status detail is also error colored */
+}
+
+/* GPU Card Throttled State */
+.gpu-card.throttled {
+    border-left-color: #e5c07b; /* Warning yellow for throttled */
+    animation: throttledPulse 1.5s infinite alternate;
+}
+
+.gpu-card.error.throttled {
+    animation: errorPulse 1s infinite alternate, throttledPulse 1.5s infinite alternate; /* Combine if needed */
+}
+
+@keyframes throttledPulse {
+    from {
+        box-shadow: 0 0 8px rgba(229, 192, 123, 0.4), 0 2px 8px rgba(0,0,0,0.2);
+    }
+    to {
+        box-shadow: 0 0 15px rgba(229, 192, 123, 0.7), 0 2px 8px rgba(0,0,0,0.3);
+    }
+}
+
+.gpu-thermal-info {
+    font-size: 0.75em;
+    color: #e5c07b; /* Warning yellow */
+    text-align: center;
+    margin-top: 3px;
+    padding: 2px;
+    background-color: rgba(40, 44, 52, 0.5);
+    border-radius: 3px;
+    display: none; /* Hidden by default */
+    font-weight: bold;
+}
+
+/* GPU Token Animation Styles */
+.gpu-token-animation-area {
+    position: absolute; /* Changed from relative to absolute for positioning within card */
+    bottom: 5px; /* Position near the bottom of the card */
+    left: 0;
+    right: 0;
+    height: 20px; /* Area for tokens to animate within */
+    pointer-events: none; /* Don't let it interfere with mouse events on card */
+    overflow: hidden; /* Optional: hide tokens if they go out of this defined box */
+}
+
+.animated-token {
+    position: absolute;
+    bottom: 0; /* Start at the bottom of the animation area */
+    width: 4px;
+    height: 4px;
+    background-color: #56b6c2; /* Teal color for tokens */
+    border-radius: 50%;
+    opacity: 0;
+    animation: processTokenAnimation 0.6s ease-in-out;
+}
+
+@keyframes processTokenAnimation {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(0.7);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(-12px) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.5);
+    }
+}
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid #c678dd; }*/
+/*.job-detail-item.job-detail-inference { border-left: 2px solid #61afef; }*/
+
+/* Secondary Action Button Style (e.g., for debug/test actions) Commented out as it's moved above */
+/*
+.secondary-action-btn {
+    background-color: #4b515c; 
+    color: #abb2bf;
+}
+
+.secondary-action-btn:hover {
+    background-color: #5c6370;
+    color: #d4d8de;
+}
+*/
+
+/* Performance Chart Area */
+#performance-chart-area {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#performance-chart-area h4 {
+    /* Uses existing #stats-area h4 styles, or can be specific if needed */
+    margin-bottom: 8px; 
+}
+
+#tokens-chart-container {
+    width: 100%;
+    height: 100px; /* Fixed height for the SVG chart */
+    /* SVG background is set in JS */
+}
+
+/* --- GPU Detail Modal Styles --- */
+.modal-hidden {
+    display: none;
+}
+
+#gpu-detail-modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    display: flex; /* Use flexbox for centering */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+
+#gpu-detail-modal.modal-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #282c34; /* Dark background */
+    margin: auto;
+    padding: 25px 30px;
+    border: 1px solid #4b515c;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #abb2bf;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#gpu-detail-modal.modal-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    color: #777c85;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #e06c75; /* Error/close color on hover */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-gpu-id {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #61afef; /* Accent color */
+    border-bottom: 1px solid #4b515c;
+    padding-bottom: 10px;
+}
+
+#modal-gpu-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+#modal-gpu-details-content strong {
+    color: #98c379; /* Accent for labels */
+    margin-right: 5px;
+}
+
+#modal-gpu-details-content .job-list-in-modal {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #4b515c;
+}
+
+#modal-gpu-details-content .job-list-in-modal h4 {
+    margin-bottom: 8px;
+    color: #c678dd;
+}
+
+#modal-gpu-details-content .job-list-in-modal ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#modal-gpu-details-content .job-list-in-modal li {
+    background-color: #21252b;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid #61afef;
+}
+
+/* --- End Modal Styles --- */
+
+/* Job Detail Item Category Styling */
+.job-detail-item.job-detail-training strong {
+    color: #c678dd; /* Purple for training job IDs/prefix */
+}
+
+.job-detail-item.job-detail-inference strong {
+    color: #61afef; /* Blue for inference job IDs/prefix - already somewhat standard */
+}
+
+/* Alternative: if we want to color the whole item bar or add specific icons */
+/*.job-detail-item.job-detail-training { border-left: 2px solid

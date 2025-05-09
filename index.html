@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPU Rack Playground - GB200 NVL72 Interactive Simulator</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>GPU Rack Playground - GB200 NVL72 Interactive Simulator</h1>
+    </header>
+
+    <main>
+        <div id="simulation-area">
+            <!-- Visual representation of the rack, GPUs, etc. will go here -->
+            <p>Simulation Visuals Coming Soon...</p>
+        </div>
+
+        <div id="controls-area">
+            <h2>Controls</h2>
+            <!-- Buttons to start/stop simulation, load models, etc. -->
+            <button id="start-sim-btn">Start Simulation</button>
+            <button id="stop-sim-btn">Stop Simulation</button>
+            <button id="reset-sim-btn">Reset Simulation</button>
+            <hr>
+            <div id="custom-job-form-area">
+                <h4>Add Custom Job</h4>
+                <div>
+                    <label for="custom-job-name">Job Name (Optional):</label>
+                    <input type="text" id="custom-job-name" placeholder="e.g., My Training Run">
+                </div>
+                <div>
+                    <label for="custom-job-category">Job Category:</label>
+                    <select id="custom-job-category">
+                        <option value="inference" selected>Inference</option>
+                        <option value="training">Training</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="custom-job-params">Parameters (Billions):</label>
+                    <input type="number" id="custom-job-params" value="7" min="0.1" step="0.1">
+                </div>
+                <div>
+                    <label for="custom-job-precision">Precision:</label>
+                    <select id="custom-job-precision">
+                        <!-- Options populated by JS from PRECISION_CONFIG -->
+                    </select>
+                </div>
+                <div>
+                    <label for="custom-job-base-ops">Base Ops/Token (Rel.):</label>
+                    <input type="number" id="custom-job-base-ops" value="2" min="0.01" step="0.01">
+                </div>
+                <div>
+                    <label for="custom-job-comm-intensity">Communication Intensity:</label>
+                    <input type="range" id="custom-job-comm-intensity" min="0" max="1" value="0.1" step="0.01">
+                    <span id="custom-job-comm-intensity-value">0.10</span>
+                </div>
+                <div>
+                    <label for="custom-job-tokens">Total Tokens:</label>
+                    <input type="number" id="custom-job-tokens" value="10000" min="100" step="100">
+                </div>
+
+                <div id="custom-job-training-fields" style="display:none; padding-left: 15px; border-left: 2px solid #444; margin-top: 5px; padding-top: 5px;">
+                    <h5>Training Specifics:</h5>
+                    <div>
+                        <label for="custom-job-epochs">Target Epochs:</label>
+                        <input type="number" id="custom-job-epochs" value="1" min="1">
+                    </div>
+                    <div>
+                        <label for="custom-job-initial-loss">Initial Loss:</label>
+                        <input type="number" id="custom-job-initial-loss" value="2.0" step="0.1">
+                    </div>
+                    <div>
+                        <label for="custom-job-loss-reduction">Loss Reduction/Epoch:</label>
+                        <input type="number" id="custom-job-loss-reduction" value="0.1" step="0.01">
+                    </div>
+                </div>
+                <button id="add-custom-job-btn" style="margin-top:10px;">Add Custom Job to Queue</button>
+            </div>
+            <hr>
+            <!-- More controls can be added here -->
+        </div>
+
+        <div id="settings-area">
+            <h2>Settings</h2>
+            
+            <div>
+                <label for="perf-mode-select">Performance Mode:</label>
+                <select id="perf-mode-select">
+                    <option value="theoretical">Theoretical Max</option>
+                    <option value="realistic">Realistic</option>
+                </select>
+            </div>
+            <div id="realistic-perf-factor-group" style="display: none;"> <!-- Show only if mode is realistic -->
+                <label for="realistic-perf-factor-slider">Realistic Perf. Factor:</label>
+                <input type="range" id="realistic-perf-factor-slider" min="0.1" max="1" value="0.75" step="0.01">
+                <span id="realistic-perf-factor-value">0.75</span>
+            </div>
+
+            <div>
+                <label for="time-scale-slider">Time Speed:</label>
+                <input type="range" id="time-scale-slider" min="0.1" max="10" value="1" step="0.1">
+                <span id="time-scale-value">1.0x</span>
+            </div>
+            
+            <hr>
+            <h4>GPU Configuration (Global)</h4>
+            <div>
+                <label for="gpu-processing-units-input">Base Processing Units (per GPU):</label>
+                <input type="number" id="gpu-processing-units-input" value="100" min="10" step="10">
+            </div>
+             <div>
+                <label for="gpu-memory-gb-input">Memory GB (per GPU):</label>
+                <input type="number" id="gpu-memory-gb-input" value="192" min="32" step="16">
+            </div>
+            <div>
+                <label for="gpu-load-speed-slider">Model Load Speed Factor:</label>
+                <input type="range" id="gpu-load-speed-slider" min="0.01" max="1" value="0.1" step="0.01">
+                <span id="gpu-load-speed-value">0.1</span>
+            </div>
+
+            <hr>
+            <h4>Simulation Parameters</h4>
+            <div>
+                <label for="max-concurrent-jobs-input">Max Concurrent Jobs (per GPU):</label>
+                <input type="number" id="max-concurrent-jobs-input" value="4" min="1" step="1">
+            </div>
+            <div>
+                <label for="enable-gpu-errors-toggle">Enable GPU Errors:</label>
+                <input type="checkbox" id="enable-gpu-errors-toggle" checked>
+            </div>
+            <div>
+                <label for="error-chance-slider">GPU Error Chance (per tick, per GPU):</label>
+                <input type="range" id="error-chance-slider" min="0" max="0.01" value="0.0005" step="0.0001">
+                <span id="error-chance-value">0.0005</span>
+            </div>
+            <div>
+                <label for="gpu-recovery-ticks-input">GPU Recovery Time (ticks):</label>
+                <input type="number" id="gpu-recovery-ticks-input" value="200" min="10" step="10">
+            </div>
+            <div>
+                <label for="interconnect-bottleneck-slider">Interconnect Bottleneck Factor:</label>
+                <input type="range" id="interconnect-bottleneck-slider" min="0" max="0.5" value="0.2" step="0.01">
+                <span id="interconnect-bottleneck-value">0.20</span>
+            </div>
+            <div>
+                <label for="scheduling-mode-select">Job Scheduling Mode:</label>
+                <select id="scheduling-mode-select">
+                    <!-- Options populated by JS -->
+                </select>
+            </div>
+
+            <hr>
+            <h4>Thermal Throttling Parameters (GPU Config)</h4>
+            <div>
+                <label for="enable-thermal-throttling-toggle">Enable Thermal Throttling:</label>
+                <input type="checkbox" id="enable-thermal-throttling-toggle" checked>
+            </div>
+            <div>
+                <label for="thermal-threshold-slider">Throttling Load Threshold (%):</label>
+                <input type="range" id="thermal-threshold-slider" min="50" max="99" value="85" step="1">
+                <span id="thermal-threshold-value">85%</span>
+            </div>
+            <div>
+                <label for="thermal-severity-slider">Throttling Severity (Perf. Reduction):</label>
+                <input type="range" id="thermal-severity-slider" min="0.05" max="0.75" value="0.25" step="0.01">
+                <span id="thermal-severity-value">0.25</span>
+            </div>
+            <div>
+                <label for="ticks-to-overheat-input">Ticks to Overheat:</label>
+                <input type="number" id="ticks-to-overheat-input" value="150" min="20" step="10">
+            </div>
+            <div>
+                <label for="ticks-to-cooldown-input">Ticks to Cooldown:</label>
+                <input type="number" id="ticks-to-cooldown-input" value="200" min="20" step="10">
+            </div>
+            <div>
+                <label for="cooldown-load-threshold-slider">Cooldown Effective Load Threshold (%):</label>
+                <input type="range" id="cooldown-load-threshold-slider" min="10" max="70" value="60" step="1">
+                <span id="cooldown-load-threshold-value">60%</span>
+            </div>
+
+            <hr>
+            <h4>Debug / Testing</h4>
+            <div>
+                <button id="trigger-gpu-error-btn" class="secondary-action-btn">Trigger Random GPU Error</button>
+            </div>
+        </div>
+
+        <div id="stats-area">
+            <!-- Content will be populated by js/ui.js -->
+        </div>
+    </main>
+
+    <footer>
+        <p>Interactive AI Training & Inference Fun!</p>
+    </footer>
+
+    <!-- GPU Detail Modal -->
+    <div id="gpu-detail-modal" class="modal-hidden">
+        <div class="modal-content">
+            <span class="modal-close-btn">&times;</span>
+            <h3 id="modal-gpu-id">GPU Details</h3>
+            <div id="modal-gpu-details-content">
+                <p><strong>Status:</strong> <span id="modal-gpu-status">N/A</span></p>
+                <p><strong>Current Load:</strong> <span id="modal-gpu-load">N/A</span></p>
+                <p><strong>Memory Used:</strong> <span id="modal-gpu-memory">N/A</span></p>
+                <p><strong>Power Consumption:</strong> <span id="modal-gpu-power">N/A</span></p>
+                <p><strong>Throttled:</strong> <span id="modal-gpu-throttled">N/A</span></p>
+                <p><strong>Error Info:</strong> <span id="modal-gpu-error-details">N/A</span></p>
+                <p><strong>Thermal Info:</strong> <span id="modal-gpu-thermal-details">N/A</span></p>
+                <h4>Active Jobs on this GPU:</h4>
+                <div id="modal-active-jobs-list">
+                    <p>None</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js" type="module"></script>
+</body>
+</html> 
